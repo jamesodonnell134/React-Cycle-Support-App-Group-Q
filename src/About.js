@@ -16,7 +16,6 @@ export default () => {
         <ul>
             <li>React App</li>
             <li>NPM API</li>
-            <li>Add more here...</li>
         </ul>
 
     </div>
