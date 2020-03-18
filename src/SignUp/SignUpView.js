@@ -24,7 +24,7 @@ const SignUpView = ({ onSubmit }) => {
                 className="loginlogoutinput"
             />
           </label><br/>
-          <button className="loginlogoutbutton" type="submit">Log in</button>
+          <button className="loginlogoutbutton" type="submit">Register</button>
         </form><br/>
         <p>Or select <strong>'Sign In/Out'</strong> on the side menu.</p><br/>
       </div>
