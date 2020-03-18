@@ -1,5 +1,7 @@
 ## CS317: Group App Project - Cycling Support App
 
+**Note!: Please don't commit your node_modules directory when making changes to the project**
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Frameworks: React App, NPM API
