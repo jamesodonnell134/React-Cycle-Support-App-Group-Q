@@ -1,26 +1,105 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import app from "./base";
+import PrivateRoute from "./PrivateRoute";
+import { FiLoader } from 'react-icons/fi';
+import Home from "./Home";
+import Ride from "./Ride";
+import MyRides from "./MyRides";
+import Leaderboards from "./Leaderboards";
+import MyAccount from "./MyAccount";
+import About from "./About";
+import Settings from "./Settings";
+import LogIn from "./LogIn";
+import SignUp from "./SignUp";
+import "./styles.css";
 
-function App() {
-  return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-              className="App-link"
-              href="https://reactjs.org"
-              target="_blank"
-              rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-  );
+class App extends Component {
+    state = { loading: true, authenticated: false, user: null };
+
+    componentDidMount() {
+        app.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({
+                    authenticated: true,
+                    currentUser: user,
+                    loading: false
+                });
+            } else {
+                this.setState({
+                    authenticated: false,
+                    currentUser: null,
+                    loading: false
+                });
+            }
+        });
+    }
+
+    render() {
+        const { authenticated, loading } = this.state;
+
+        if (loading) {
+            return <p className="please_wait">Please wait <FiLoader/></p>;
+        }
+
+        return (
+            <Router>
+                <div>
+                    <div className="App">
+                        <Sidebar />
+                        <div id="page-wrap">
+                            <h1>Cycling Support App</h1>
+                        </div>
+                    </div>
+                    <PrivateRoute
+                        exact
+                        path="/"
+                        component={Home}
+                        authenticated={authenticated}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/ride"
+                        component={Ride}
+                        authenticated={authenticated}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/myrides"
+                        component={MyRides}
+                        authenticated={authenticated}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/leaderboards"
+                        component={Leaderboards}
+                        authenticated={authenticated}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/settings"
+                        component={Settings}
+                        authenticated={authenticated}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/myaccount"
+                        component={MyAccount}
+                        authenticated={authenticated}
+                    />
+                    <PrivateRoute
+                        exact
+                        path="/about"
+                        component={About}
+                        authenticated={authenticated}
+                    />
+                    <Route exact path="/login" component={LogIn} />
+                    <Route exact path="/signup" component={SignUp} />
+                </div>
+            </Router>
+        );
+    }
 }
 
 export default App;

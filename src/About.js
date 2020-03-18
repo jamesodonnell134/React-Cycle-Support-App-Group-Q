@@ -1,5 +1,5 @@
 import React from "react";
-import { FaInfoCircle } from 'react-icons/fa';
+import { FaJs, FaCss3Alt, FaHtml5, FaInfoCircle, FaReact} from 'react-icons/fa';
 
 
 export default () => {
@@ -8,14 +8,15 @@ export default () => {
         <h1><FaInfoCircle/> About</h1><br/>
         <h2>Languages used:</h2>
         <ul>
-            <li>HTML5</li>
-            <li>CSS3</li>
-            <li>JavaScript</li>
+            <li>HTML5 <FaHtml5/></li>
+            <li>CSS3 <FaCss3Alt/></li>
+            <li>JavaScript <FaJs/></li>
         </ul>
         <h2>Frameworks used:</h2>
         <ul>
-            <li>React App</li>
+            <li>React App <FaReact/></li>
             <li>NPM API</li>
+            <li>Add more here...</li>
         </ul>
 
     </div>

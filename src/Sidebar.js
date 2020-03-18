@@ -1,13 +1,9 @@
 import React from "react";
 import { slide as Menu } from "react-burger-menu";
+import app from "./base";
 import { Link } from "react-router-dom";
-import { FaHome } from 'react-icons/fa';
-import { FaClipboardList } from 'react-icons/fa';
-import { MdAccountBox } from 'react-icons/md';
-import { MdDirectionsBike } from 'react-icons/md';
-import { MdSettings } from 'react-icons/md';
-import { FaTrophy } from 'react-icons/fa';
-import { FaInfoCircle } from 'react-icons/fa';
+import { FaHome, FaInfoCircle, FaTrophy, FaClipboardList, FaPen} from 'react-icons/fa';
+import { MdAccountBox, MdDirectionsBike, MdSettings} from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
 
 export default class Sidebar extends React.Component {
@@ -27,9 +23,9 @@ export default class Sidebar extends React.Component {
     return (
       <Menu
         isOpen={this.state.menuOpen}
-        onStateChange={state => this.handleStateChange(state)}
-      >
-        <Link onClick={() => this.closeMenu()} className="menu-item" to="/home">
+        onStateChange={state => this.handleStateChange(state)}>
+
+        <Link onClick={() => this.closeMenu()} className="menu-item" to="/">
           <FaHome/> Home
         </Link>
         <Link onClick={() => this.closeMenu()} className="menu-item" to="/ride">
@@ -50,10 +46,12 @@ export default class Sidebar extends React.Component {
         <Link onClick={() => this.closeMenu()} className="menu-item" to="/about">
           <FaInfoCircle/> About
         </Link><br/><br/>
-        <Link onClick={() => this.closeMenu()} className="menu-item" to="/logout">
-          <FiLogOut/> Logout
+        <Link onClick={() => app.auth().signOut() > this.closeMenu()} className="menu-item" to="/login">
+          <FiLogOut/> Sign In/Out
         </Link>
-
+        <Link onClick={() => this.closeMenu()} className="menu-item" to="/signup">
+          <FaPen/> Register
+        </Link>
         </Menu>
     );
   }
