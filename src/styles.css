@@ -146,3 +146,22 @@ h2{
 .bm-overlay {
   background: rgba(0, 0, 0, 0.5);
 }
+
+
+.btn {
+  border: none;
+  border-radius: 0;
+  margin-right: 4px;
+}
+
+.display{
+  text-align: center;
+}
+
+.red{
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
