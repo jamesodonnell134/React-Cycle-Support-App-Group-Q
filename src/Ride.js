@@ -16,7 +16,9 @@ export default () => {
     );
 }
 
-
+let formattedTime = 0;
+let resetVar = false;
+let resetTime = 0;
 
 class Stopwatch extends React.Component {
     constructor() {
@@ -61,19 +63,22 @@ class Stopwatch extends React.Component {
     }
 
     onResetClick() {
+        resetTime = formattedTime;
         this.onStopClick();
 
         let newState = Object.assign({}, this.state);
         newState.time = 0;
+        newState.condition = true;
         this.setState(newState);
 
+        resetVar = true;
     }
 
     render() {
         let hours = Math.floor(this.state.time / 3600);
         let minutes = Math.floor((this.state.time - (hours * 3600)) / 60);
         let seconds = this.state.time - (hours * 3600) - (minutes * 60);
-        let formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+        formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
 
         return (
             <div className="timer well">
@@ -83,6 +88,13 @@ class Stopwatch extends React.Component {
                     <button className={ this.state.condition ? "hidden" : "button btn " } onClick={this.handleStopClick}>Pause</button>
                     <button className="red btn" onClick={this.handleResetClick}>Reset</button>
                 </p>
+                <p className={ resetVar ? "display" : "hidden" }>Your last time is: </p>
+                <p className={ resetVar ? "display" : "hidden" }>{resetTime} </p>
+                <p className={ resetVar ? "display" : "hidden" }>Do you want to save it to your progress?
+                    <button>Yes</button>
+                    <button>No</button>
+                </p>
+
             </div>
         );
     }
