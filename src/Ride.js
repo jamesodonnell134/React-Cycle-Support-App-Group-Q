@@ -42,7 +42,7 @@ class Stopwatch extends React.Component {
 
     onStartClick() {
         if (!this.interval) {
-            this.interval = setInterval(this.tick.bind(this), 1000);
+            this.interval = setInterval(this.tick.bind(this), 100);
             // eslint-disable-next-line react/no-direct-mutation-state
 
         }
@@ -75,10 +75,11 @@ class Stopwatch extends React.Component {
     }
 
     render() {
-        let hours = Math.floor(this.state.time / 3600);
-        let minutes = Math.floor((this.state.time - (hours * 3600)) / 60);
-        let seconds = this.state.time - (hours * 3600) - (minutes * 60);
-        formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}`;
+        let hours = Math.floor(this.state.time / 36000);
+        let minutes = Math.floor((this.state.time - (hours * 36000)) / 600);
+        let seconds = Math.floor((this.state.time - (hours * 36000) - (minutes * 600))/10);
+        let tenths = this.state.time - (hours * 36000) - (minutes * 600) - (seconds * 10);
+        formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}.${tenths}`;
 
         return (
             <div className="timer well">
