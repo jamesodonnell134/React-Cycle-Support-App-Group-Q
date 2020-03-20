@@ -13,4 +13,6 @@ const app = firebase.initializeApp({
   measurementId: "G-56D9EBP14L"
 });
 
+
 export default app;
+
