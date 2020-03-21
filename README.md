@@ -8,6 +8,12 @@ Frameworks: React App, NPM API
 
 Languages: HTML5, CSS3, JavaScript
 
+**Note:** In development mode, "Target container is not a DOM element" is throws when storing a new ride for the first time but it works fine.
+
+Run the following production build and not thrown: 
+### `npm run build`
+
+
 ## Available Scripts
 
 In the project directory, you can run:

@@ -99,8 +99,13 @@ class Stopwatch extends React.Component {
         alert("Ride saved to My Rides!")
 
          }
+    onNoClick(){
+        let newState = Object.assign({}, this.state);
+        newState.condition = true;
+        this.setState(newState);
 
-
+        resetVar = false;
+    }
 
 
     render() {
@@ -116,17 +121,17 @@ class Stopwatch extends React.Component {
 
 
             <div className="timer well">
-                <p className="time">{formattedTime}</p>
+                <h1 className="time">{formattedTime}</h1>
                 <div className="btn-group">
-                    <button className={ this.state.condition ? "button btn" : "hidden" } onClick={this.handleStartClick}>Start</button>
+                    <button className={ this.state.condition ? "button btn" : "hidden" } onClick={this.handleStartClick}>Ride</button>
                     <button className={ this.state.condition ? "hidden" : "button btn " } onClick={this.handleStopClick}>Pause</button>
                     <button className="red btn" onClick={this.handleResetClick}>Finish</button>
                 </div><br/>
                 <p className={ resetVar ? "display" : "hidden" }>Your last time is: </p>
                 <p className={ resetVar ? "display" : "hidden" }>{resetTime} </p>
                 <p className={ resetVar ? "display" : "hidden" }>Save your ride to My Rides?
-                    <button onClick={() =>this.onYesClick(dbTime)}>Yes</button>
-                    <button>No</button>
+                    <button onClick={() =>this.onYesClick(dbTime) > this.onNoClick()}>Yes</button>
+                    <button onClick={() =>this.onNoClick()}>No</button>
                 </p>
 
             </div>
