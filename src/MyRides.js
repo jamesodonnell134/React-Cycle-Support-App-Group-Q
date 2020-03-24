@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from 'react-dom'
 import { FaClipboardList } from 'react-icons/fa';
 import firebase from "firebase";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
 let user_id = null;
 
 export default () => {
@@ -19,7 +21,7 @@ export default () => {
             <h1><FaClipboardList/> My Rides</h1>
             <button className={"grd"} onClick={() =>onGetDataClick()}>Get Ride Data</button>
             <div id="data">
-                <li></li>
+
             </div>
         </div>
 
@@ -58,15 +60,13 @@ export default () => {
             }
 
             const listItems = myrides.map((myrides) =>
-                <li className={"myRidesLi"}>{myrides}</li>
+                <li className={"myRidesLi"} key={myrides}>{myrides}</li>
             );
 
+            ReactDOM.render(listItems, document.getElementById('data'));
 
-            ReactDOM.render(
-                <ul className={"myRidesUl"}>{listItems}</ul>,
-                document.getElementById('data')
-            );
         }
+
     }
 
 
