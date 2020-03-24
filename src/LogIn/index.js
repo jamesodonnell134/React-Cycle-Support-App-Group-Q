@@ -13,6 +13,7 @@ class LoginPage extends Component {
         .auth()
         .signInWithEmailAndPassword(email.value, password.value);
       this.props.history.push("/");
+
     } catch (error) {
       alert(error);
     }
