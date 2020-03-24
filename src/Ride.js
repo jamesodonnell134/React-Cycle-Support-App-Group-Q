@@ -177,7 +177,7 @@ class Stopwatch extends React.Component {
         let kilometers = Math.floor(this.state.distance);
         let meters = Math.floor(this.state.distance * 1000);
         let dbDistance = formattedDistance;
-        formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}km`;
+        formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}`;
 
         return (
 

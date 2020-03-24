@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from 'react-dom'
-import { FaClipboardList } from 'react-icons/fa';
+import { FaClipboardList, FaStopwatch, FaStar, FaTrashAlt } from 'react-icons/fa';
+import { GiPathDistance } from 'react-icons/gi';
 import firebase from "firebase";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
 let user_id = null;
 
 export default () => {
@@ -20,9 +19,8 @@ export default () => {
         <div className="myrides">
             <h1><FaClipboardList/> My Rides</h1>
             <button className={"grd"} onClick={() =>onGetDataClick()}>Get Ride Data</button>
-            <div id="data">
-
-            </div>
+            <p className="myrides-tab"><GiPathDistance/> Distance (km) | <FaStopwatch/> Time | <FaStar/> Score</p>
+                <div id="data"></div>
         </div>
 
 
@@ -31,11 +29,21 @@ export default () => {
     function onGetDataClick(){
         let database = firebase.database();
         let ref = database.ref('myrides/'+user_id)
-        ref.on('value', gotData, errData())
+        ref.on('value', gotData)
     }
 
+    // Deleting ride from database
+    function onTrashClick(k){
+        const r = window.confirm("Are you sure you want to delete this ride?");
+        if(r) {
+            let key = k;
+            let something = 'myrides/'+user_id+ '/'+key
+            firebase.database().ref(something).remove()
+        }
+    }
 
     function gotData(data) {
+
         let values = data.val();
         console.log(values)
         if(values === null){
@@ -49,18 +57,17 @@ export default () => {
         else {
             let keys = Object.keys(values);
             let myrides = [];
-            myrides.push("Distance : Time")
-            myrides.push(<br/>);
 
             for (let i = 0; i < keys.length; i++) {
                 let k = keys[i];
                 let distance = values[k].distance;
                 let time = values[k].time
-                myrides.push(distance + " : " + time);
+                myrides.push(distance + " | " + time,
+                    <button className={"trash"} onClick={() =>onTrashClick(k)}><FaTrashAlt/></button>);
             }
 
-            const listItems = myrides.map((myrides) =>
-                <li className={"myRidesLi"} key={myrides}>{myrides}</li>
+            const listItems = myrides.map((ride, index) =>
+                <li className={"myRidesLi"} key={index}>{ride}</li>
             );
 
             ReactDOM.render(listItems, document.getElementById('data'));
@@ -68,13 +75,6 @@ export default () => {
         }
 
     }
-
-
-    function errData(err) {
-        console.log("Error!")
-        console.log(err);
-    }
-
 
 };
 
