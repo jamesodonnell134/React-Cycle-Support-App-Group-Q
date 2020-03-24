@@ -3,6 +3,7 @@ import "./styles.css";
 import firebase from "firebase";
 let database = firebase.database();
 let formattedTime = 0;
+let formattedDistance = 0;
 
 export default () => {
 
@@ -23,6 +24,8 @@ export default () => {
 let resetVar = false;
 let resetTime = 0;
 let user_id = "null";
+let resetDistance = 0;
+let geolocation, curPos, oldPos;
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -33,15 +36,18 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 class Stopwatch extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.handleStartClick = this.onStartClick.bind(this);
         this.handleStopClick = this.onStopClick.bind(this);
         this.handleResetClick = this.onResetClick.bind(this);
 
+        this.init();
+
         this.state = {
             time: 0,
+            distance: 0,
             condition: true
         };
     }
@@ -50,8 +56,57 @@ class Stopwatch extends React.Component {
         let newState = Object.assign({}, this.state);
         newState.time = newState.time + 1;
         this.setState(newState);
+        if(this.state.time % 10 === 0) {
+            this.updatePosition();
+        }
     }
 
+    init(){
+        function getPosition(pos){
+            curPos = pos.coords;
+            oldPos = pos.coords;
+            console.log("Success");
+            geolocation = true;
+        }
+        if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getPosition, function (error) {
+                console.log("Error occurred. Error code: " + error.code);
+                geolocation = false;
+            });
+        }else{
+            console.log("Location not supported");
+            geolocation = false;
+        }
+    }
+
+    updatePosition(){
+        navigator.geolocation.watchPosition(function(position){
+            oldPos = curPos;
+            curPos = position.coords;
+            this.incrementDistance(oldPos.latitude, oldPos.longitude,
+                curPos.latitude, curPos.longitude);
+        }, function(error){
+            console.log("Error occurred. Error code: " + error.code);
+        });
+    }
+
+    incrementDistance(lat1, lon1, lat2, lon2){
+        let R = 6371; //Earth's radius in km.
+        let rLat1 = this.degToRad(lat1);
+        let rLat2 = this.degToRad(lat2)
+        let deltaLat = this.degToRad(lat2-lat1);
+        let deltaLon = this.degToRad(lon2-lon1);
+
+        let a = ((Math.sin(deltaLat/2))^2) + Math.cos(rLat1) * Math.cos(rLat2) * ((Math.sin(deltaLon/2))^2);
+        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        let newState = Object.assign({}, this.state);
+        newState.distance = newState.distance + R*c;
+        this.setState(newState);
+    }
+
+    degToRad(degrees){
+        return degrees*(Math.PI/180);
+    }
 
     onStartClick() {
         if (!this.interval) {
@@ -78,10 +133,12 @@ class Stopwatch extends React.Component {
     onResetClick() {
 
         resetTime = formattedTime;
+        resetDistance = formattedDistance;
         this.onStopClick();
 
         let newState = Object.assign({}, this.state);
         newState.time = 0;
+        newState.distance = 0;
         newState.condition = true;
         this.setState(newState);
 
@@ -89,11 +146,11 @@ class Stopwatch extends React.Component {
     }
 
 
-    onYesClick(time) {
+    onYesClick(time, distance) {
         let ref = database.ref('myrides/' + user_id)
         let data = {
             time: time,
-            distance: 0
+            distance: distance
         }
         ref.push(data);
         alert("Ride saved to My Rides!")
@@ -117,11 +174,18 @@ class Stopwatch extends React.Component {
         let dbTime = formattedTime;
         formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}.${tenths}`;
 
+        let kilometers = Math.floor(this.state.distance);
+        let meters = Math.floor(this.state.distance * 1000);
+        let dbDistance = formattedDistance;
+        formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}km`;
+
         return (
 
 
             <div className="timer well">
                 <h1 className="time">{formattedTime}</h1>
+                <h1 className={ geolocation ? "hidden" : "display"}>Geolocation not supported.</h1><br/>
+                <h1 className={ geolocation ? "distance" : "hidden"}>{formattedDistance}</h1>
                 <div className="btn-group">
                     <button className={ this.state.condition ? "button btn" : "hidden" } onClick={this.handleStartClick}>Ride</button>
                     <button className={ this.state.condition ? "hidden" : "button btn " } onClick={this.handleStopClick}>Pause</button>
@@ -129,8 +193,10 @@ class Stopwatch extends React.Component {
                 </div><br/>
                 <p className={ resetVar ? "display" : "hidden" }>Your last time is: </p>
                 <p className={ resetVar ? "display" : "hidden" }>{resetTime} </p>
+                <p className={ resetVar ? "display" : "hidden" }>Your last distance is: </p>
+                <p className={ resetVar ? "display" : "hidden" }>{resetDistance} </p>
                 <p className={ resetVar ? "display" : "hidden" }>Save your ride to My Rides?
-                    <button onClick={() =>this.onYesClick(dbTime) > this.onNoClick()}>Yes</button>
+                    <button onClick={() =>this.onYesClick(dbTime, dbDistance) > this.onNoClick()}>Yes</button>
                     <button onClick={() =>this.onNoClick()}>No</button>
                 </p>
 
@@ -138,6 +204,8 @@ class Stopwatch extends React.Component {
         );
     }
 }
+
+
 
 
 
