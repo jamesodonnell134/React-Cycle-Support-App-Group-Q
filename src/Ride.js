@@ -95,9 +95,7 @@ class Stopwatch extends React.Component {
                 let c = 2 * Math.asin(Math.min(1, Math.sqrt(a)))
                 dist = dist + (R * c);
                 dist = dist/1000;
-                if (p % 2 === 0){
-                    alert("somethin:" + dist);
-                }
+
                 let newState = Object.assign({}, this.state);
                 newState.distance = newState.distance + R*c;
                 this.setState(newState);
