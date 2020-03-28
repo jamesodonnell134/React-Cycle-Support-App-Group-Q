@@ -4,6 +4,9 @@ import firebase from "firebase";
 let database = firebase.database();
 let formattedTime = 0;
 let formattedDistance = 0;
+let dist = 0;
+let p = 0;
+
 
 export default () => {
 
@@ -39,11 +42,8 @@ class Stopwatch extends React.Component {
     constructor(props) {
         super(props);
 
-        this.handleStartClick = this.onStartClick.bind(this);
         this.handleStopClick = this.onStopClick.bind(this);
         this.handleResetClick = this.onResetClick.bind(this);
-
-        this.init();
 
         this.state = {
             time: 0,
@@ -61,14 +61,15 @@ class Stopwatch extends React.Component {
         }
     }
 
-    init(){
+    onLocation(){
         function getPosition(pos){
             curPos = pos.coords;
             oldPos = pos.coords;
-            console.log("Success");
             geolocation = true;
         }
         if(navigator.geolocation) {
+            console.log("Geolocation supported");
+            this.onStartClick();
             navigator.geolocation.getCurrentPosition(getPosition, function (error) {
                 console.log("Error occurred. Error code: " + error.code);
                 geolocation = false;
@@ -81,32 +82,45 @@ class Stopwatch extends React.Component {
 
     updatePosition(){
         navigator.geolocation.watchPosition(function(position){
+
+            function addDist(lat1, lon1, lat2, lon2){
+                p+=1;
+                let R = 6371; //Earth's radius in km.
+                let rLat1 = degToRad(lat1);
+                let rLat2 = degToRad(lat2)
+                let deltaLat = degToRad(lat2-lat1);
+                let deltaLon = degToRad(lon2-lon1);
+                let a = ((Math.sin(deltaLat/2))^2) + Math.cos(rLat1) * Math.cos(rLat2) * ((Math.sin(deltaLon/2))^2);
+                //let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                let c = 2 * Math.asin(Math.min(1, Math.sqrt(a)))
+                dist = dist + (R * c);
+                dist = dist/1000;
+                if (p % 2 === 0){
+                    alert("somethin:" + dist);
+                }
+                let newState = Object.assign({}, this.state);
+                newState.distance = newState.distance + R*c;
+                this.setState(newState);
+            }
+
+            function degToRad(degrees){
+                return degrees*(Math.PI/180);
+            }
+
             oldPos = curPos;
             curPos = position.coords;
-            this.incrementDistance(oldPos.latitude, oldPos.longitude,
-                curPos.latitude, curPos.longitude);
+            let oldPosLat = oldPos.latitude;
+            let oldPosLon = oldPos.longitude;
+            let curPosLat = curPos.latitude;
+            let curPosLon = curPos.longitude;
+
+            addDist(oldPosLat, oldPosLon, curPosLat, curPosLon);
+
         }, function(error){
-            console.log("Error occurred. Error code: " + error.code);
+            alert("error in inc distance" + error.code);
         });
     }
 
-    incrementDistance(lat1, lon1, lat2, lon2){
-        let R = 6371; //Earth's radius in km.
-        let rLat1 = this.degToRad(lat1);
-        let rLat2 = this.degToRad(lat2)
-        let deltaLat = this.degToRad(lat2-lat1);
-        let deltaLon = this.degToRad(lon2-lon1);
-
-        let a = ((Math.sin(deltaLat/2))^2) + Math.cos(rLat1) * Math.cos(rLat2) * ((Math.sin(deltaLon/2))^2);
-        let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        let newState = Object.assign({}, this.state);
-        newState.distance = newState.distance + R*c;
-        this.setState(newState);
-    }
-
-    degToRad(degrees){
-        return degrees*(Math.PI/180);
-    }
 
     onStartClick() {
         if (!this.interval) {
@@ -153,9 +167,9 @@ class Stopwatch extends React.Component {
             distance: distance
         }
         ref.push(data);
-        alert("Ride saved to My Rides!")
+        alert("Ride saved to My Rides!");
 
-         }
+    }
     onNoClick(){
         let newState = Object.assign({}, this.state);
         newState.condition = true;
@@ -187,7 +201,7 @@ class Stopwatch extends React.Component {
                 <h1 className={ geolocation ? "hidden" : "display"}>Geolocation not supported.</h1><br/>
                 <h1 className={ geolocation ? "distance" : "hidden"}>{formattedDistance}</h1>
                 <div className="btn-group">
-                    <button className={ this.state.condition ? "button btn" : "hidden" } onClick={this.handleStartClick}>Ride</button>
+                    <button className={ this.state.condition ? "button btn" : "hidden" } onClick={() => this.onLocation()}>Ride</button>
                     <button className={ this.state.condition ? "hidden" : "button btn " } onClick={this.handleStopClick}>Pause</button>
                     <button className="red btn" onClick={this.handleResetClick}>Finish</button>
                 </div><br/>
@@ -204,9 +218,3 @@ class Stopwatch extends React.Component {
         );
     }
 }
-
-
-
-
-
-
