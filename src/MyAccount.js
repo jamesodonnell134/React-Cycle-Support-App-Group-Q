@@ -7,6 +7,7 @@ let last_name, contact_number, residence, DOB, first_name = "Not set!";
 let resetVar = false;
 
 firebase.auth().onAuthStateChanged(function(user) {
+    resetVar = false;
     if (user) {
         user_id = user.uid;
     } else {
@@ -105,9 +106,7 @@ class MyAccount extends React.Component {
                         <br/>
                     <input onClick={() => this.handleGo()} className={ resetVar ? "grd" : "hidden" } type="submit" value="Submit Changes"/>
                     </form>
-                    {resetVar = false}
                 </div>
-
         );
     }
 
