@@ -40,15 +40,15 @@ class SignUpPage extends Component {
       let ref = database.ref('users/'+user_id)
       let data = {
         email: email,
-        first_name: "First name",
-        last_name: "Last name",
-        DOB: "00/00/0000",
-        contact_number: "Last name",
-        residence: "Residence",
+        first_name: "Not set!",
+        last_name: "Not set!",
+        DOB: "Not set!",
+        contact_number: "Not set!",
+        residence: "Not set!",
 
       }
       ref.set(data);
-      alert("User created successfully!!");
+      alert("Account created successfully!");
 
     }
   };
