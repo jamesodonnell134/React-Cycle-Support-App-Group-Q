@@ -95,7 +95,7 @@ class MyAccount extends React.Component {
                             <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="15" name = "last_name" value={this.state.value} onChange={this.handleChange.bind(this)}/>
                         </p>
                         <p className={ resetVar ? "display" : "hidden" }>Contact no:
-                            <input className={ resetVar ? "details" : "hidden" } type="number" maxLength="11" name = "contact_number" value={this.state.value} onChange={this.handleChange.bind(this)}/>
+                            <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="11" name = "contact_number" value={this.state.value} onChange={this.handleChange.bind(this)}/>
                         </p>
                         <p className={ resetVar ? "display" : "hidden" }>DOB:
                             <input className={ resetVar ? "details" : "hidden" } type="date" name = "DOB" value={this.state.value} onChange={this.handleChange.bind(this)}/>
