@@ -87,19 +87,21 @@ class Stopwatch extends React.Component {
                 p+=1;
                 let R = 6371; //Earth's radius in km.
                 let rLat1 = degToRad(lat1);
-                let rLat2 = degToRad(lat2)
+                let rLat2 = degToRad(lat2);
                 let deltaLat = degToRad(lat2-lat1);
                 let deltaLon = degToRad(lon2-lon1);
-                let a = ((Math.sin(deltaLat/2))^2) + Math.cos(rLat1) * Math.cos(rLat2) * ((Math.sin(deltaLon/2))^2);
-                //let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                let c = 2 * Math.asin(Math.min(1, Math.sqrt(a)))
-                dist = dist + (R * c);
-                dist = dist/1000;
-                alert("somethin:" + dist);
+                let a = (Math.sin(deltaLat/2)) * (Math.sin(deltaLat/2))  + Math.cos(rLat1) * Math.cos(rLat2) * (Math.sin(deltaLon/2)) * (Math.sin(deltaLon/2));
+                //let cc = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                let c = 2 * Math.asin(Math.min(1, Math.sqrt(a)));
+                console.log("a: "+ a);
 
-                //let newState = Object.assign({}, this.state);
-                //newState.distance = newState.distance + R*c;
-                //this.setState(newState);
+                dist = dist  + (R * c);
+                //dist = dist/1000;
+
+
+                // let newState = Object.assign({}, this.state);
+                // newState.distance = newState.distance + R*c;
+                // this.setState(newState);
             }
 
             function degToRad(degrees){
@@ -107,6 +109,7 @@ class Stopwatch extends React.Component {
             }
 
             oldPos = curPos;
+
             curPos = position.coords;
             let oldPosLat = oldPos.latitude;
             let oldPosLon = oldPos.longitude;
@@ -160,11 +163,11 @@ class Stopwatch extends React.Component {
 
 
     onYesClick(time, distance) {
-        let ref = database.ref('myrides/' + user_id)
+        let ref = database.ref('myrides/' + user_id);
         let data = {
             time: time,
             distance: distance
-        }
+        };
         ref.push(data);
         alert("Ride saved to My Rides!");
 
@@ -187,8 +190,8 @@ class Stopwatch extends React.Component {
         let dbTime = formattedTime;
         formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}.${tenths}`;
 
-        let kilometers = Math.floor(this.state.distance);
-        let meters = Math.floor(this.state.distance * 1000);
+        let kilometers = Math.floor(dist);
+        let meters = Math.floor(dist * 1000);
         let dbDistance = formattedDistance;
         formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}`;
 

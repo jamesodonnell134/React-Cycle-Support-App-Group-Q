@@ -15,6 +15,21 @@ import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import "./styles.css";
 
+let element = document.body;
+element.classList.toggle("dark-mode");
+if(localStorage.getItem('dark_mode_enabled') === null){
+    document.body.style.backgroundColor = "white";
+    document.body.style.color = "black";
+}
+else if(localStorage.getItem('dark_mode_enabled') === "true"){
+    document.body.style.backgroundColor = "black";
+    document.body.style.color = "white";
+}
+else if(localStorage.getItem('dark_mode_enabled') === "false"){
+    document.body.style.backgroundColor = "white";
+    document.body.style.color = "black";
+}
+
 class App extends Component {
     state = { loading: true, authenticated: false, user: null };
 
@@ -44,12 +59,14 @@ class App extends Component {
         }
 
         return (
+
             <Router>
                 <div>
                     <div className="App">
                         <Sidebar />
                         <div id="page-wrap">
                             <h1>Cycling Support App</h1>
+
                         </div>
                     </div>
                     <PrivateRoute

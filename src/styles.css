@@ -86,6 +86,19 @@ body {
   margin-top: 0;
 }
 
+.about_ul{
+  font-size: 1.2em;
+  width: 15em;
+  text-align: center;
+  margin-left: -2em;
+}
+
+.aboutP{
+  font-size: 1.2em;
+  width: 15em;
+  text-align: center;
+}
+
 .loginview{
   background-color: #fff0f0;
 }
@@ -123,6 +136,7 @@ h2{
 .myrides-tab{
   background-color: #fff0f0;
   width: 20em;
+  color: black;
   border-radius: 0.5em;
   padding: 0.5em;
 
@@ -138,7 +152,7 @@ h2{
 
 }
 
-.myrides, .myaccount, .leaderboards, .home, .about, .ride, .settings{
+.myrides, .myaccount, .leaderboards, .home, .ride, .settings{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -148,6 +162,17 @@ h2{
   max-width: 100vw;
   font-family: sans-serif;
 
+}
+
+.about{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  width: 100ch;
+  max-width: 100vw;
+  font-family: sans-serif;
 }
 
 .myRidesLi{
@@ -167,6 +192,10 @@ li{
   list-style-type: none;
 }
 
+.about h2{
+  font-size: 1em;
+  margin-bottom: 0px;
+}
 
 .home, .about. myrides, myaccount, leaderboards h1{
   top: -2px;
@@ -181,7 +210,7 @@ li{
   display: inline-block;
   text-decoration: none;
   margin-bottom: 20px;
-  color: #1c1d24;
+  color: white;
   transition: color 0.2s;
 }
 
@@ -212,7 +241,7 @@ li{
 }
 
 .bm-menu {
-  background: white;
+  background: #373a47;
   padding: 2.5em 1.5em 0;
   font-size: 1.5em;
 }
@@ -222,9 +251,6 @@ li{
   fill: #373a47;
 }
 
-.bm-item-list {
-  color: #b8b7ad;
-}
 
 .bm-overlay {
   background: rgba(0, 0, 0, 0.5);
@@ -247,4 +273,26 @@ li{
 
 .hidden {
   display: none;
+}
+
+
+/*Dark mode stuff*/
+
+.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+.dark-mode-button {
+  width: 5em;
+  text-align: center;
+  padding: 1em;
+  background-color: lightgray;
+  color: white;
+}
+.switch-off {
+  background-color: #f9314d;
+}
+.switch-on {
+  background-color: #1bae61;
 }

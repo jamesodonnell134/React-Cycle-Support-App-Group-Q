@@ -6,19 +6,24 @@ export default () => {
   return (
     <div className="about">
         <h1><FaInfoCircle/> About</h1><br/>
+
+        <h2>Details:</h2>
+        <p className="aboutP">This app was created as part of coursework for the class CS317 @ The University of Strathclyde</p>
+        <ul className="about_ul">
+            <li>App created by Group Q:</li>
+            <li>Martin Aleksandrov, David Peter Caldwell, Gavin Irving, Dominik Meyer and James O'Donnell</li>
+        </ul>
         <h2>Languages used:</h2>
-        <ul>
+        <ul className="about_ul">
             <li>HTML5 <FaHtml5/></li>
             <li>CSS3 <FaCss3Alt/></li>
             <li>JavaScript <FaJs/></li>
         </ul>
         <h2>Frameworks used:</h2>
-        <ul>
+        <ul className="about_ul">
             <li>React App <FaReact/></li>
             <li>NPM API</li>
-            <li>Add more here...</li>
         </ul>
-
     </div>
   );
 };

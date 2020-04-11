@@ -5,6 +5,15 @@ import { Link } from "react-router-dom";
 import { FaHome, FaInfoCircle, FaTrophy, FaClipboardList, FaPen} from 'react-icons/fa';
 import { MdAccountBox, MdDirectionsBike, MdSettings} from 'react-icons/md';
 import { FiLogOut } from 'react-icons/fi';
+import firebase from "firebase";
+
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        console.log("user set!")
+    } else {
+        console.log("User not set!!");
+    }
+});
 
 export default class Sidebar extends React.Component {
   state = {
@@ -46,7 +55,7 @@ export default class Sidebar extends React.Component {
         <Link onClick={() => this.closeMenu()} className="menu-item" to="/about">
           <FaInfoCircle/> About
         </Link><br/><br/>
-        <Link onClick={() => app.auth().signOut() > this.closeMenu()} className="menu-item" to="/login">
+        <Link onClick={() => app.auth().signOut() > this.closeMenu() > darkMode()} className="menu-item" to="/login">
           <FiLogOut/> Sign In/Out
         </Link>
         <Link onClick={() => this.closeMenu()} className="menu-item" to="/signup">
@@ -54,6 +63,13 @@ export default class Sidebar extends React.Component {
         </Link>
         </Menu>
     );
+
+      function darkMode(){
+          if(localStorage.getItem('dark_mode_enabled')) {
+              document.body.style.backgroundColor = "white"
+              document.body.style.color = "black"
+          }
+      }
   }
 }
 
