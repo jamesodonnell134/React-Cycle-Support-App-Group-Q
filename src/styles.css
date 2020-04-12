@@ -88,14 +88,14 @@ body {
 }
 
 .about_ul{
-  font-size: 1.2em;
+  font-size: 1em;
   width: 15em;
   text-align: center;
   margin-left: -2em;
 }
 
 .aboutP{
-  font-size: 1.2em;
+  font-size: 1em;
   width: 15em;
   text-align: center;
 }
@@ -160,7 +160,7 @@ h2{
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: 88vh;
+  height: 85vh;
   width: 100ch;
   max-width: 100vw;
   font-family: sans-serif;
@@ -168,11 +168,12 @@ h2{
 }
 
 .about{
+  font_size: 0.7rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  min-height: 100vh;
+  height: 85vh;
   width: 100ch;
   max-width: 100vw;
   font-family: sans-serif;
