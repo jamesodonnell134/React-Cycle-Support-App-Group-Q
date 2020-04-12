@@ -74,7 +74,7 @@ class Stopwatch extends React.Component {
             this.onStartClick();
             navigator.geolocation.getCurrentPosition(getPosition, function (error) {
                 console.log("Error occurred. Error code: " + error.code);
-                geolocation = false;
+                //geolocation = false;
             });
         }else{
             console.log("Location not supported");
