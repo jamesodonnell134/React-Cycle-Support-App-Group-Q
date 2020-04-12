@@ -58,7 +58,7 @@ export default class Sidebar extends React.Component {
         <Link onClick={() => app.auth().signOut() > this.closeMenu() > darkMode()} className="menu-item" to="/login">
           <FiLogOut/> Sign In/Out
         </Link>
-        <Link onClick={() => this.closeMenu()} className="menu-item" to="/signup">
+        <Link onClick={() => app.auth().signOut() > this.closeMenu()} className="menu-item" to="/signup">
           <FaPen/> Register
         </Link>
         </Menu>
