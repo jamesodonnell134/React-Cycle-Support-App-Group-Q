@@ -4,7 +4,7 @@ import firebase from "firebase";
 let database = firebase.database();
 let formattedTime = 0;
 let formattedDistance = 0;
-let score = 0;
+let newScore = 0;
 let dist = 0;
 let p = 0;
 
@@ -152,7 +152,7 @@ class Stopwatch extends React.Component {
 
         resetTime = formattedTime;
         resetDistance = formattedDistance;
-        resetScore = score;
+        resetScore = newScore;
         this.onStopClick();
 
         let newState = Object.assign({}, this.state);
@@ -200,7 +200,8 @@ class Stopwatch extends React.Component {
         formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters} km`;
 
         let speed = (dist * 1000)/(this.state.time/10);
-        score = Math.round((dist * 1000) + speed*150);
+        newScore = Math.round((dist * 1000) + speed*150);
+        let dbScore = newScore;
 
         return (
 
@@ -221,7 +222,7 @@ class Stopwatch extends React.Component {
                 <p className={ resetVar ? "display" : "hidden" }>Your last score is: </p>
                 <p className={ resetVar ? "display" : "hidden" }>{resetScore}</p>
                 <p className={ resetVar ? "display" : "hidden" }>Save your ride to My Rides?
-                    <button onClick={() =>this.onYesClick(dbTime, dbDistance, score) > this.onNoClick()}>Yes</button>
+                    <button onClick={() =>this.onYesClick(dbTime, dbDistance, dbScore) > this.onNoClick()}>Yes</button>
                     <button onClick={() =>this.onNoClick()}>No</button>
                 </p>
 
