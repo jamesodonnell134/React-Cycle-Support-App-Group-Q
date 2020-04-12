@@ -93,7 +93,7 @@ class Stopwatch extends React.Component {
                 let a = (Math.sin(deltaLat/2)) * (Math.sin(deltaLat/2))  + Math.cos(rLat1) * Math.cos(rLat2) * (Math.sin(deltaLon/2)) * (Math.sin(deltaLon/2));
                 //let cc = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                 let c = 2 * Math.asin(Math.min(1, Math.sqrt(a)));
-                console.log("a: "+ a);
+                
 
                 dist = dist  + (R * c);
                 //dist = dist/1000;
@@ -205,7 +205,7 @@ class Stopwatch extends React.Component {
                 <div className="btn-group">
                     <button className={ this.state.condition ? "button btn" : "hidden" } onClick={() => this.onLocation()}>Ride</button>
                     <button className={ this.state.condition ? "hidden" : "button btn " } onClick={this.handleStopClick}>Pause</button>
-                    <button className="red btn" onClick={this.handleResetClick}>Finish</button>
+                    <button className={ resetVar ? "hidden" : "red btn" } onClick={this.handleResetClick}>Finish</button>
                 </div><br/>
                 <p className={ resetVar ? "display" : "hidden" }>Your last time is: </p>
                 <p className={ resetVar ? "display" : "hidden" }>{resetTime} </p>
