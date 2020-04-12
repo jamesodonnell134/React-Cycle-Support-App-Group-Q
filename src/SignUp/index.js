@@ -15,8 +15,10 @@ class SignUpPage extends Component {
     const { email, password } = event.target.elements;
     try {
       await app
-        .auth()
-        .createUserWithEmailAndPassword(email.value, password.value);
+          .auth()
+          .createUserWithEmailAndPassword(email.value, password.value);
+          makeUser(email.value);
+
       this.props.history.push("/");
       account_created = true;
 
@@ -24,7 +26,7 @@ class SignUpPage extends Component {
         if (user) {
           user_id = user.uid;
           if(account_created) {
-            makeUser(email.value);
+            console.log("Account creation successful!")
           }
         } else {
           console.log("User not set!!");
