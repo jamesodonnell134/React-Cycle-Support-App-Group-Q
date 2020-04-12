@@ -4,6 +4,7 @@ import firebase from "firebase";
 let database = firebase.database();
 let formattedTime = 0;
 let formattedDistance = 0;
+let score = 0;
 let dist = 0;
 let p = 0;
 
@@ -26,6 +27,7 @@ export default () => {
 
 let resetVar = false;
 let resetTime = 0;
+let resetScore = 0;
 let user_id = "null";
 let resetDistance = 0;
 let geolocation, curPos, oldPos;
@@ -150,6 +152,7 @@ class Stopwatch extends React.Component {
 
         resetTime = formattedTime;
         resetDistance = formattedDistance;
+        resetScore = score;
         this.onStopClick();
 
         let newState = Object.assign({}, this.state);
@@ -162,11 +165,12 @@ class Stopwatch extends React.Component {
     }
 
 
-    onYesClick(time, distance) {
+    onYesClick(time, distance, score) {
         let ref = database.ref('myrides/' + user_id);
         let data = {
             time: time,
-            distance: distance
+            distance: distance,
+            score: score
         };
         ref.push(data);
         alert("Ride saved to My Rides!");
@@ -191,9 +195,12 @@ class Stopwatch extends React.Component {
         formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}.${tenths}`;
 
         let kilometers = Math.floor(dist);
-        let meters = Math.floor(dist * 1000);
+        let meters = Math.floor((dist-kilometers) * 1000);
         let dbDistance = formattedDistance;
-        formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}`;
+        formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}km`;
+
+        let speed = (dist * 1000)/(this.state.time/10);
+        score = Math.round(dist + speed*150);
 
         return (
 
@@ -211,8 +218,10 @@ class Stopwatch extends React.Component {
                 <p className={ resetVar ? "display" : "hidden" }>{resetTime} </p>
                 <p className={ resetVar ? "display" : "hidden" }>Your last distance is: </p>
                 <p className={ resetVar ? "display" : "hidden" }>{resetDistance} </p>
+                <p className={ resetVar ? "display" : "hidden" }>Your last score is: </p>
+                <p className={ resetVar ? "display" : "hidden" }>{resetScore}</p>
                 <p className={ resetVar ? "display" : "hidden" }>Save your ride to My Rides?
-                    <button onClick={() =>this.onYesClick(dbTime, dbDistance) > this.onNoClick()}>Yes</button>
+                    <button onClick={() =>this.onYesClick(dbTime, dbDistance, score) > this.onNoClick()}>Yes</button>
                     <button onClick={() =>this.onNoClick()}>No</button>
                 </p>
 
