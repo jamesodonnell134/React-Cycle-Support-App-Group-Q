@@ -4,6 +4,7 @@ import SignUpView from "./SignUpView";
 import app from "../base";
 import firebase from "firebase";
 let user_id = null;
+let account_created = false;
 
 
 class SignUpPage extends Component {
@@ -19,7 +20,7 @@ class SignUpPage extends Component {
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           user_id = user.uid;
-          if(user_id) {
+          if(account_created) {
             console.log("Account creation successful!")
             makeUser(email.value, user_id);
           }
@@ -29,6 +30,7 @@ class SignUpPage extends Component {
       });
 
       this.props.history.push("/");
+      account_created = true;
 
 
 
