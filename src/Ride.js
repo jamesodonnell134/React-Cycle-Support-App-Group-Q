@@ -199,7 +199,7 @@ class Stopwatch extends React.Component {
         let kilometers = Math.floor(dist/1000);
         let meters = Math.floor(dist-(kilometers*1000));
         let dbDistance = formattedDistance;
-        formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters} km`;
+        formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}`;
 
         let speed = (dist)/(this.state.time/10);
         let dbScore = newScore;
@@ -211,7 +211,7 @@ class Stopwatch extends React.Component {
             <div className="timer well">
                 <h1 className="time">{formattedTime}</h1>
                 <h1 className={ geolocation ? "hidden" : "display"}>Geolocation not supported.</h1><br/>
-                <h1 className={ geolocation ? "distance" : "hidden"}>{formattedDistance}</h1>
+                <h1 className={ geolocation ? "distance" : "hidden"}>{formattedDistance} km</h1>
                 <div className="btn-group">
                     <button className={ this.state.condition ? "button btn" : "hidden" } onClick={() => this.onLocation()}>Ride</button>
                     <button className={ this.state.condition ? "hidden" : "button btn " } onClick={this.handleStopClick}>Pause</button>

@@ -61,8 +61,9 @@ export default () => {
             for (let i = 0; i < keys.length; i++) {
                 let k = keys[i];
                 let distance = values[k].distance;
-                let time = values[k].time
-                myrides.push(distance + " | " + time,
+                let time = values[k].time;
+                let score = values[k].score;
+                myrides.push(distance + " | " + time + " | " + score,
                     <button className={"trash"} onClick={() =>onTrashClick(k)}><FaTrashAlt/></button>);
             }
 
