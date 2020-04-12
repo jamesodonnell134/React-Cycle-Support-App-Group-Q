@@ -172,6 +172,7 @@ class Stopwatch extends React.Component {
             distance: distance,
             score: score
         };
+        console.log(user_id);
         ref.push(data);
         alert("Ride saved to My Rides!");
 
@@ -200,8 +201,8 @@ class Stopwatch extends React.Component {
         formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters} km`;
 
         let speed = (dist * 1000)/(this.state.time/10);
-        newScore = Math.round((dist * 1000) + speed*150);
         let dbScore = newScore;
+        newScore = Math.round((dist * 1000) + speed*150);
 
         return (
 
