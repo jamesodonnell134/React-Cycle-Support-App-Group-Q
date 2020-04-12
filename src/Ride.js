@@ -30,7 +30,7 @@ let resetTime = 0;
 let resetScore = 0;
 let user_id = "null";
 let resetDistance = 0;
-let geolocation, curPos, oldPos;
+let geolocation = true, curPos, oldPos;
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -74,7 +74,7 @@ class Stopwatch extends React.Component {
             this.onStartClick();
             navigator.geolocation.getCurrentPosition(getPosition, function (error) {
                 console.log("Error occurred. Error code: " + error.code);
-                //geolocation = false;
+                geolocation = false;
             });
         }else{
             console.log("Location not supported");
