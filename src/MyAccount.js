@@ -3,7 +3,7 @@ import { MdAccountBox } from 'react-icons/md';
 import firebase from "firebase";
 import ReactDOM from "react-dom";
 let user_id = null;
-let last_name, contact_number, residence, DOB, first_name = "Not set!";
+let email, last_name, contact_number, residence, DOB, first_name = "Not set!";
 let resetVar = false;
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -64,6 +64,7 @@ class MyAccount extends React.Component {
             console.log("Got the data!")
             last_name = values.last_name;
             contact_number = values.contact_number;
+            email = values.email;
             residence = values.residence;
             DOB = values.DOB;
             first_name = values.first_name;
@@ -151,6 +152,7 @@ class MyAccount extends React.Component {
             let data = {
                 first_name: first_name,
                 last_name: last_name,
+                email: email,
                 DOB: DOB,
                 contact_number: contact_number,
                 residence: residence,
