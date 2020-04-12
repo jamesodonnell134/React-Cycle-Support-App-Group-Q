@@ -110,9 +110,9 @@ class Stopwatch extends React.Component {
                 return degrees*(Math.PI/180);
             }
 
-            oldPos = Object.assign({}, curPos);
+            oldPos = JSON.parse(JSON.stringify(curPos));
 
-            curPos = Object.assign({},position.coords);
+            curPos = position.coords;
             let oldPosLat = oldPos.latitude;
             let oldPosLon = oldPos.longitude;
             let curPosLat = curPos.latitude;
