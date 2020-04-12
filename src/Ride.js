@@ -87,7 +87,7 @@ class Stopwatch extends React.Component {
 
             function addDist(lat1, lon1, lat2, lon2){
                 p+=1;
-                let R = 6371; //Earth's radius in km.
+                let R = 6371000; //Earth's radius in m.
                 let rLat1 = degToRad(lat1);
                 let rLat2 = degToRad(lat2);
                 let deltaLat = degToRad(lat2-lat1);
@@ -195,8 +195,8 @@ class Stopwatch extends React.Component {
         let dbTime = formattedTime;
         formattedTime = `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}:${seconds < 10 ? "0" + seconds : seconds}.${tenths}`;
 
-        let kilometers = Math.floor(dist);
-        let meters = Math.floor((dist-kilometers) * 1000);
+        let kilometers = Math.floor(dist/1000);
+        let meters = Math.floor(dist-(kilometers*1000));
         let dbDistance = formattedDistance;
         formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters} km`;
 
