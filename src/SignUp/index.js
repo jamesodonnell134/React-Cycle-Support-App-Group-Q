@@ -17,21 +17,22 @@ class SignUpPage extends Component {
       await app
           .auth()
           .createUserWithEmailAndPassword(email.value, password.value);
-          makeUser(email.value);
-
-      this.props.history.push("/");
-      account_created = true;
-
       firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
           user_id = user.uid;
           if(account_created) {
             console.log("Account creation successful!")
+            makeUser(email.value);
           }
         } else {
           console.log("User not set!!");
         }
       });
+
+      this.props.history.push("/");
+      account_created = true;
+
+      
 
     } catch (error) {
       alert(error);
