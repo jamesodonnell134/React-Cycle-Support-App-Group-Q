@@ -5,13 +5,43 @@ import app from "../base";
 import firebase from "firebase";
 let user_id = null;
 let account_created = false;
+let arr = [];
 
+function stripDomain(email){
+  return email.substring(0, email.indexOf('@'));
+}
 
+function pullUsernames(){
+  let database = firebase.database();
+  let ref = database.ref('users');
+  ref.on('value', gotUsernames);
+}
+
+function gotUsernames(data) {
+  let database = firebase.database();
+  let users = data.val();
+  if (users === null) {
+    console.log("No stored data!")
+
+  } else {
+    let keys = Object.keys(users);
+    let usersArr = []
+    for (let i = 0; i < keys.length; i++) {
+      let k = keys[i];
+      let curUsername = stripDomain(users[k].email);
+      usersArr.push(curUsername)
+    }
+    arr = usersArr;
+    //console.log("All usernames : ", arr)
+  }
+}
 class SignUpPage extends Component {
 
   SignUpHandler = async event => {
     // Don't reload, get target form
     event.preventDefault();
+    pullUsernames();
+
     const { email, password } = event.target.elements;
     try {
       await app
@@ -21,8 +51,9 @@ class SignUpPage extends Component {
         if (user) {
           user_id = user.uid;
           if(account_created) {
-            console.log("Account creation successful!")
             makeUser(email.value, user_id);
+            console.log("Account creation successful!");
+            alert("Account created successfully!");
           }
         } else {
           console.log("User not set!!");
@@ -39,20 +70,29 @@ class SignUpPage extends Component {
     }
 
     function makeUser(email, id){
+      let username = email.substring(0, email.indexOf('@'));
+      let chars = ["@", "!", "#", "?", "$", "~"];
+        while(arr.includes(username)){
+          let random_number = Math.floor(Math.random() * 100);
+          let char = chars[Math.floor(Math.random() * chars.length)];
+          random_number.toString();
+          let num_char = random_number + char.toString();
+          username += num_char;
+        }
+
+
       let database = firebase.database();
-      let ref = database.ref('users/'+id)
+      let ref = database.ref('users/'+id);
       let data = {
         email: email,
+        username : username,
         first_name: "Not set!",
         last_name: "Not set!",
         DOB: "Not set!",
         contact_number: "Not set!",
         residence: "Not set!",
-
-      }
+      };
       ref.set(data);
-      alert("Account created successfully!");
-
     }
   };
 
