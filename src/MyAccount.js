@@ -14,7 +14,17 @@ firebase.auth().onAuthStateChanged(function(user) {
         console.log("User not set!!");
     }
 });
+const ColoredLine = ({ color }) => (
+    <hr
+        style={{
+            color: color,
+            backgroundColor: color,
+            border: 0,
+            height: 1
 
+        }}
+    />
+);
 
 const asyncOperation = () => new Promise(resolve => setTimeout(resolve, 1000))
 
@@ -88,7 +98,11 @@ class MyAccount extends React.Component {
                     <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Contact no:</strong> {contact_number}</p>
                     <p className= { resetVar ? "myacc-label" : "hidden"}><strong>DOB:</strong> {DOB}</p>
                     <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Residence:</strong> {residence}</p>
-                    <p className= { resetVar ? "myacc-p" : "hidden"}>------ Personalise your account below: ------</p>
+                    <div className= { resetVar ? "myacc-p" : "hidden"}>
+                        <ColoredLine  color="black" /></div>
+                    <p className= { resetVar ? "myacc-p" : "hidden"}> Personalise your account below:</p>
+                    <div className= { resetVar ? "myacc-p" : "hidden"}>
+                        <ColoredLine  color="black" /></div>
 
                     <p className={ resetVar ? "display" : "hidden" }>First name:
                         <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="12" name = "first_name" value={this.state.value} onChange={this.handleChange.bind(this)}/>
@@ -176,5 +190,7 @@ ReactDOM.render(
     <MyAccount />,
     document.getElementById('root')
 );
+
+
 
 export default MyAccount;
