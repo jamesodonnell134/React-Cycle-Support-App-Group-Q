@@ -1,5 +1,6 @@
 import React from "react";
 import { FaPen } from 'react-icons/fa';
+import {Link} from "react-router-dom";
 
 const SignUpView = ({ onSubmit }) => {
   return (
@@ -26,9 +27,24 @@ const SignUpView = ({ onSubmit }) => {
           </label><br/>
           <button className="loginlogoutbutton" type="submit">Register</button>
         </form><br/>
-        <p>Or select <strong>'Sign In/Out'</strong> on the side menu.</p><br/>
+          <div className="hover-container">
+              <p> Already have an account?
+                  <Link className= "links" to="/login">Log in</Link>
+              </p>
+          </div>
       </div>
   );
 };
 
+
+function Register() {
+    return (
+        <div>
+            <h2>About</h2>
+        </div>
+    );
+}
+
 export default SignUpView;
+
+
