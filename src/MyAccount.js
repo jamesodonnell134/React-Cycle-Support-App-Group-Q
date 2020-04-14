@@ -24,7 +24,7 @@ class MyAccount extends React.Component {
         super()
 
         this.state = {
-                loading: false,
+            loading: false,
         }
 
         this.initialiseDB();
@@ -76,39 +76,39 @@ class MyAccount extends React.Component {
 
         return (
 
-                <div className="myrides">
+            <div className="myrides">
 
-                    <h1><MdAccountBox/> My Account</h1>
+                <h1><MdAccountBox/> My Account</h1>
 
-                    <button className={"grd"} onClick={this.handleClick}>Get Account Data</button>
-                    {this.state.loading && <p>Retrieving data...</p>}
-                    <form onSubmit={this.handleSubmit}>
-                        <p className= { resetVar ? "myacc-label" : "hidden"}><strong>First name:</strong> {first_name}</p>
-                        <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Last name:</strong> {last_name}</p>
-                        <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Contact no:</strong> {contact_number}</p>
-                        <p className= { resetVar ? "myacc-label" : "hidden"}><strong>DOB:</strong> {DOB}</p>
-                        <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Residence:</strong> {residence}</p>
-                        <p className= { resetVar ? "myacc-p" : "hidden"}>------- Personalise your account below: -------</p>
+                <button className={"grd"} onClick={this.handleClick}>Get Account Data</button>
+                {this.state.loading && <p>Retrieving data...</p>}
+                <form onSubmit={this.handleSubmit}>
+                    <p className= { resetVar ? "myacc-label" : "hidden"}><strong>First name:</strong> {first_name}</p>
+                    <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Last name:</strong> {last_name}</p>
+                    <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Contact no:</strong> {contact_number}</p>
+                    <p className= { resetVar ? "myacc-label" : "hidden"}><strong>DOB:</strong> {DOB}</p>
+                    <p className= { resetVar ? "myacc-label" : "hidden"}><strong>Residence:</strong> {residence}</p>
+                    <p className= { resetVar ? "myacc-p" : "hidden"}>------ Personalise your account below: ------</p>
 
-                        <p className={ resetVar ? "display" : "hidden" }>First name:
-                            <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="12" name = "first_name" value={this.state.value} onChange={this.handleChange.bind(this)}/>
-                        </p>
-                        <p className={ resetVar ? "display" : "hidden" }>Last name:
-                            <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="15" name = "last_name" value={this.state.value} onChange={this.handleChange.bind(this)}/>
-                        </p>
-                        <p className={ resetVar ? "display" : "hidden" }>Contact no:
-                            <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="11" name = "contact_number" value={this.state.value} onChange={this.handleChange.bind(this)}/>
-                        </p>
-                        <p className={ resetVar ? "display" : "hidden" }>DOB:
-                            <input className={ resetVar ? "details" : "hidden" } type="date" name = "DOB" value={this.state.value} onChange={this.handleChange.bind(this)}/>
-                        </p>
-                        <p className={ resetVar ? "display" : "hidden" }>Residence:
-                            <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="20" name = "residence" value={this.state.value} onChange={this.handleChange.bind(this)}/>
-                        </p>
-                        <br/>
-                    <input onClick={() => this.handleGo()} className={ resetVar ? "grd" : "hidden" } type="submit" value="Submit Changes"/>
-                    </form>
-                </div>
+                    <p className={ resetVar ? "display" : "hidden" }>First name:
+                        <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="12" name = "first_name" value={this.state.value} onChange={this.handleChange.bind(this)}/>
+                    </p>
+                    <p className={ resetVar ? "display" : "hidden" }>Last name:
+                        <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="15" name = "last_name" value={this.state.value} onChange={this.handleChange.bind(this)}/>
+                    </p>
+                    <p className={ resetVar ? "display" : "hidden" }>Contact no:
+                        <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="11" name = "contact_number" value={this.state.value} onChange={this.handleChange.bind(this)}/>
+                    </p>
+                    <p className={ resetVar ? "display" : "hidden" }>DOB:
+                        <input className={ resetVar ? "details" : "hidden" } type="date" name = "DOB" value={this.state.value} onChange={this.handleChange.bind(this)}/>
+                    </p>
+                    <p className={ resetVar ? "display" : "hidden" }>Residence:
+                        <input className={ resetVar ? "details" : "hidden" } type="text" maxLength="20" name = "residence" value={this.state.value} onChange={this.handleChange.bind(this)}/>
+                    </p>
+                    <br/>
+                    <input onClick={() => this.handleGo()} className={ resetVar ? "grd-submit" : "hidden" } type="submit" value="Submit Changes"/>
+                </form>
+            </div>
         );
     }
 
@@ -117,7 +117,7 @@ class MyAccount extends React.Component {
 
         this.setState(
             { [e.target.name] : e.target.value },
-            );
+        );
 
         switch(e.target.name) {
             case 'first_name':
