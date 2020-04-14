@@ -510,6 +510,7 @@ li{
 
 .text-align-justify{
   text-align: justify;
+  width: 80%;
 }
 
 .yes:active{
