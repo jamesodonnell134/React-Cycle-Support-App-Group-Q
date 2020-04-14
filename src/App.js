@@ -64,7 +64,7 @@ class App extends Component {
                 <div>
                     <div className="App">
                         <Sidebar />
-                        <div id="page-wrap">
+                        <div id="header">
                             <h1>Cycling Support App</h1>
 
                         </div>
