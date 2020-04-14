@@ -6,7 +6,7 @@ import { FaPlay, FaPause, FaStop } from 'react-icons/fa';
 let database = firebase.database();
 let formattedTime = 0;
 let formattedDistance = 0;
-let newScore = 0;
+let formattedScore = 0;
 let dist = 0;
 let p = 0;
 
@@ -27,6 +27,7 @@ export default () => {
 }
 
 let resetVar = false;
+let finishVis = false;
 let resetTime = 0;
 let resetScore = 0;
 let user_id = "null";
@@ -139,6 +140,8 @@ class Stopwatch extends React.Component {
         let newState = Object.assign({}, this.state);
         newState.condition = false;
         this.setState(newState);
+
+        finishVis = true;
     }
 
     onStopClick() {
@@ -167,7 +170,7 @@ class Stopwatch extends React.Component {
 
         resetTime = formattedTime;
         resetDistance = formattedDistance;
-        resetScore = newScore;
+        resetScore = formattedScore;
         this.onStopClick();
 
         let newState = Object.assign({}, this.state);
@@ -178,6 +181,7 @@ class Stopwatch extends React.Component {
         this.setState(newState);
 
         resetVar = true;
+        finishVis = false;
     }
 
 
@@ -217,12 +221,13 @@ class Stopwatch extends React.Component {
         formattedDistance = `${kilometers < 10 ? "0" + kilometers : kilometers}.${meters < 10 ? "00" + meters : meters < 100 ? "0" + meters : meters}`;
 
         let speed = (dist)/(this.state.time/10);
-        let dbScore = newScore;
-        newScore = Math.round((dist) + speed*150);
+        let score = Math.round((dist) + speed*100);
+        let dbScore = formattedScore;
+        formattedScore = `${score < 1 ? "000000" : score < 10 ? "00000" + score : score < 100 ? "0000" + score : score < 1000 ? "000" + score : score < 10000 ? "00" + score : score < 100000 ? "0" + score : score}`;
 
-        if(isNaN(newScore)){
-            newScore = 0;
-        };
+        if(isNaN(formattedScore)){
+            formattedScore = 0;
+        }
 
         return (
 
@@ -234,7 +239,7 @@ class Stopwatch extends React.Component {
                 <div className="btn-group">
                     <button className={ this.state.condition ? "button btn" : "hidden" } onClick={() => this.onLocation()}>Ride <FaPlay/></button>
                     <button className={ this.state.condition ? "hidden" : "button btn " } onClick={this.handleStopClick}>Pause <FaPause/></button>
-                    <button className={ resetVar  ? "hidden" : "red btn" } onClick={this.handleResetClick}>Finish <FaStop/></button>
+                    <button className={ finishVis  ? "red btn" : "hidden" } onClick={this.handleResetClick}>Finish <FaStop/></button>
                 </div><br/>
                 <p><span className={ resetVar ? "display" : "hidden" }>Last time is: </span>
                     <span className={ resetVar ? "display num" : "hidden" }>{resetTime} </span></p>

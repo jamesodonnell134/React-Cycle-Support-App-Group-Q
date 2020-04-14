@@ -54,8 +54,7 @@ class App extends Component {
         const { authenticated, loading } = this.state;
 
         if (loading) {
-            return <p className="please_wait">
-                <div className="loader">Loading...</div></p>;
+            return <div className="loader"><p className="please_wait">Loading...</p></div>;
         }
 
         return (
@@ -64,7 +63,7 @@ class App extends Component {
                 <div>
                     <div className="App">
                         <Sidebar />
-                        <div id="header">
+                        <div id="page-wrap">
                             <h1>Cycling Support App</h1>
 
                         </div>

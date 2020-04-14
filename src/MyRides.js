@@ -20,7 +20,7 @@ export default () => {
             <h1><FaClipboardList/> My Rides</h1>
             <button className={"grd"} onClick={() =>onGetDataClick()}>Get Ride Data</button>
             <p className="myrides-tab"><GiPathDistance/> Distance (km) | <FaStopwatch/> Time | <FaStar/> Score</p>
-                <div id="data"></div>
+                <div id="data"> </div>
         </div>
 
 
@@ -28,7 +28,7 @@ export default () => {
 
     function onGetDataClick(){
         let database = firebase.database();
-        let ref = database.ref('myrides/'+user_id)
+        let ref = database.ref('myrides/'+user_id);
         ref.on('value', gotData)
     }
 
@@ -36,8 +36,7 @@ export default () => {
     function onTrashClick(k){
         const r = window.confirm("Are you sure you want to delete this ride?");
         if(r) {
-            let key = k;
-            let something = 'myrides/'+user_id+ '/'+key
+            let something = 'myrides/'+user_id+ '/'+k;
             firebase.database().ref(something).remove()
         }
     }
@@ -46,7 +45,7 @@ export default () => {
 
         let values = data.val();
         if(values === null){
-            console.log("No stored data!")
+            console.log("No stored data!");
             ReactDOM.render(
                 <p className={"dataErr"}>You do not have any saved rides!</p>,
                 document.getElementById('data')
@@ -62,8 +61,8 @@ export default () => {
                 let distance = values[k].distance;
                 let time = values[k].time;
                 let score = values[k].score;
-                myrides.push(distance + " | " + time + " | " + score,
-                    <button className={"trash"} onClick={() =>onTrashClick(k) > onGetDataClick()}><FaTrashAlt/></button>);
+                myrides.push(<div>{distance} | {time} | {score} |
+                    <button className={"trash"} onClick={() =>onTrashClick(k) > onGetDataClick()}><FaTrashAlt/></button></div>);
             }
 
             const listItems = myrides.map((ride, index) =>
