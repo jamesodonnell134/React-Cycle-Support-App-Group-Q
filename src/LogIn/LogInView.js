@@ -1,9 +1,14 @@
 import React from "react";
 import { FiLogIn } from 'react-icons/fi';
 import "../styles.css";
+import {
+  Link
+} from "react-router-dom";
+
 
 const LogInView = ({ onSubmit }) => {
   return (
+
     <div className="loginview"><br/>
       <h1>Log in <FiLogIn/></h1>
       <form onSubmit={onSubmit}>
@@ -27,9 +32,17 @@ const LogInView = ({ onSubmit }) => {
         </label><br/>
         <button className="loginlogoutbutton" type="submit">Log in</button>
       </form><br/>
-      <p>Or select <strong>'Register'</strong> on the side menu.</p><br/>
+
+      <div className="hover-container">
+      <p> Don't have an account?
+        <Link className= "links" to="/signup">Create one!</Link>
+      </p>
+      </div>
     </div>
   );
 };
+
+
+
 
 export default LogInView;
