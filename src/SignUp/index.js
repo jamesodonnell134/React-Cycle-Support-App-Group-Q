@@ -18,7 +18,6 @@ function pullUsernames(){
 }
 
 function gotUsernames(data) {
-  let database = firebase.database();
   let users = data.val();
   if (users === null) {
     console.log("No stored data!")
@@ -32,7 +31,6 @@ function gotUsernames(data) {
       usersArr.push(curUsername)
     }
     arr = usersArr;
-    //console.log("All usernames : ", arr)
   }
 }
 class SignUpPage extends Component {

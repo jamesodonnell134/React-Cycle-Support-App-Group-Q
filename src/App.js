@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import app from "./base";
 import PrivateRoute from "./PrivateRoute";
-import { FiLoader } from 'react-icons/fi';
 import Home from "./Home";
 import Ride from "./Ride";
 import MyRides from "./MyRides";
@@ -65,7 +64,7 @@ class App extends Component {
                 <div>
                     <div className="App">
                         <Sidebar />
-                        <div id="header">
+                        <div id="page-wrap">
                             <h1>Cycling Support App</h1>
 
                         </div>

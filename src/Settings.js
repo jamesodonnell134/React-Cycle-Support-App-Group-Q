@@ -26,7 +26,6 @@ class DarkMode extends React.Component {
                     localStorage.setItem('dark_mode_enabled', false);
                     break;
                 case 'false':
-                    console.log("nothin")
                     document.body.style.backgroundColor = "black";
                     document.body.style.color = "white";
                     localStorage.setItem('dark_mode_enabled', true);

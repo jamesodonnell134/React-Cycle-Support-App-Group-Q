@@ -45,7 +45,6 @@ export default () => {
     function gotData(data) {
 
         let values = data.val();
-        console.log(values)
         if(values === null){
             console.log("No stored data!")
             ReactDOM.render(
@@ -64,7 +63,7 @@ export default () => {
                 let time = values[k].time;
                 let score = values[k].score;
                 myrides.push(distance + " | " + time + " | " + score,
-                    <button className={"trash"} onClick={() =>onTrashClick(k)}><FaTrashAlt/></button>);
+                    <button className={"trash"} onClick={() =>onTrashClick(k) > onGetDataClick()}><FaTrashAlt/></button>);
             }
 
             const listItems = myrides.map((ride, index) =>
