@@ -5,7 +5,7 @@ export default () => {
     return (
         <div className="home">
             <h1><FaHome/>Home</h1>
-            <p>Please use the navigation menu on the left to work your way through the app.</p>
+            <p className="text-align-justify">Please use the navigation menu on the left to work your way through the app.</p>
             <p>Our app allows you to: </p>
             <ul className="check-list">
                 <li>Measure your ride distances and times.</li>
