@@ -129,6 +129,9 @@ class Stopwatch extends React.Component {
 
 
     onStartClick() {
+        if(!finishVis){
+            dist = 0;
+        }
         navigator.vibrate(200);
         this.beep();
 
