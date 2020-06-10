@@ -1,5 +1,32 @@
 ## CS317: Group App Project - Cycling Support App
 
+App developed as part of the CS317 Mobile Applications Development class at the University of Strathclyde, Glasgow.
+
+Contributors: Martin Aleksandrov, Dominik Meyer, James O'Donnell.
+
+App screenshots:
+
+x-special/nautilus-clipboard
+copy
+file:///home/jamesodonnell/Downloads/Screenshot_20200610-141758_Chrome.jpg
+
+x-special/nautilus-clipboard
+copy
+file:///home/jamesodonnell/Downloads/Screenshot_20200610-141805_Chrome.jpg
+
+x-special/nautilus-clipboard
+copy
+file:///home/jamesodonnell/Downloads/Screenshot_20200610-141817_Chrome.jpg
+
+x-special/nautilus-clipboard
+copy
+file:///home/jamesodonnell/Downloads/Screenshot_20200610-141811_Chrome.jpg
+
+x-special/nautilus-clipboard
+copy
+file:///home/jamesodonnell/Downloads/Screenshot_20200610-141831_Chrome.jpg
+
+
 **Note!: Please don't commit your node_modules directory when making changes to the project**
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -7,8 +34,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Frameworks: React App, NPM API
 
 Languages: HTML5, CSS3, JavaScript
-
-**Note:** In development mode, "Target container is not a DOM element" is throws when storing a new ride for the first time but it works fine.
 
 Run the following production build and not thrown: 
 ### `npm run build`
