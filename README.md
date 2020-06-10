@@ -4,6 +4,10 @@ App developed as part of the CS317 Mobile Applications Development class at the 
 
 Contributors: Martin Aleksandrov, Dominik Meyer, James O'Donnell.
 
+Link to live site: https://groupq-cs317-cycle-support-app.netlify.app/login
+
+App can be added to home screen on Android and iOS as a shortcut.
+
 App screenshots:
 
 ![image](https://user-images.githubusercontent.com/45042660/84273607-c62a7680-ab26-11ea-882b-acc7b9b4c63f.png)
