@@ -6,8 +6,15 @@ Contributors: Martin Aleksandrov, Dominik Meyer, James O'Donnell.
 
 App screenshots:
 
+![image](https://user-images.githubusercontent.com/45042660/84273607-c62a7680-ab26-11ea-882b-acc7b9b4c63f.png)
 
+![image](https://user-images.githubusercontent.com/45042660/84273686-dd696400-ab26-11ea-82b3-aec766dd0d8e.png)
 
+![image](https://user-images.githubusercontent.com/45042660/84273757-f96d0580-ab26-11ea-9162-c31cc6df1a1f.png)
+
+![image](https://user-images.githubusercontent.com/45042660/84274005-42bd5500-ab27-11ea-991e-bf7b25e49fc6.png)
+
+![image](https://user-images.githubusercontent.com/45042660/84274088-5a94d900-ab27-11ea-830b-f2843126dfcc.png)
 
 **Note!: Please don't commit your node_modules directory when making changes to the project**
 
