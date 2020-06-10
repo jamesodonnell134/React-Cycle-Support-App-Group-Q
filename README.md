@@ -6,25 +6,7 @@ Contributors: Martin Aleksandrov, Dominik Meyer, James O'Donnell.
 
 App screenshots:
 
-x-special/nautilus-clipboard
-copy
-file:///home/jamesodonnell/Downloads/Screenshot_20200610-141758_Chrome.jpg
 
-x-special/nautilus-clipboard
-copy
-file:///home/jamesodonnell/Downloads/Screenshot_20200610-141805_Chrome.jpg
-
-x-special/nautilus-clipboard
-copy
-file:///home/jamesodonnell/Downloads/Screenshot_20200610-141817_Chrome.jpg
-
-x-special/nautilus-clipboard
-copy
-file:///home/jamesodonnell/Downloads/Screenshot_20200610-141811_Chrome.jpg
-
-x-special/nautilus-clipboard
-copy
-file:///home/jamesodonnell/Downloads/Screenshot_20200610-141831_Chrome.jpg
 
 
 **Note!: Please don't commit your node_modules directory when making changes to the project**
